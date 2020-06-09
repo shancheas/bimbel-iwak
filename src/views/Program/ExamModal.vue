@@ -89,7 +89,7 @@ export default {
   created() {
     const id = this.$route.params.id
     this.dropzoneOptions = {
-        url: `https://iwak.zaelani.me/courses/${id}`,
+        url: `https://iwak.zaelani.me/api/courses/${id}`,
         maxFilesize: 0.5,
         maxFiles: 1,
         autoProcessQueue: false,
