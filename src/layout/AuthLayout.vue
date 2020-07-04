@@ -7,7 +7,7 @@
       expand
     >
       <router-link slot="brand" class="navbar-brand" to="/">
-        <img src="img/brand/white.png" />
+        <img src="img/brand/logo-h.png" style="height: 70px" />
       </router-link>
     </base-nav>
     <!-- Header -->

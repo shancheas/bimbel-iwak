@@ -4,9 +4,11 @@
       <div class="card bg-teal shadow border-0">
         <div class="row">
           <div
-            class="col-sm"
+            class="col-sm text-center pt-7"
             style="background: url('https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/img-1-1000x600.jpg')"
-          ></div>
+          >
+            <img src="img/brand/logo-text2.png" style="width: 100%" />
+          </div>
           <div class="col-sm">
             <div class="card-body px-lg-5 py-lg-7">
               <form role="form">
