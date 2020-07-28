@@ -41,7 +41,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link nav-link-icon" to="/register">
+            <router-link class="nav-link nav-link-icon" to="/student">
               <i class="ni ni-circle-08"></i>
               <span class="nav-link-inner--text">Siswa</span>
             </router-link>

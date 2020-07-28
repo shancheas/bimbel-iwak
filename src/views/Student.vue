@@ -6,13 +6,6 @@
       <!--Tables-->
       <div class="row mt-5">
         <div class="col-xl-12 mb-5 mb-xl-0">
-          <exam-table></exam-table>
-        </div>
-      </div>
-      <!--End tables-->
-      <!--Tables-->
-      <div class="row mt-5">
-        <div class="col-xl-12 mb-5 mb-xl-0">
           <student-table
             :data="tableData"
           ></student-table>
@@ -24,12 +17,10 @@
 </template>
 <script>
 import StudentTable from "./Tables/StudentTable";
-import ExamTable from "./Tables/ExamTable";
 
 export default {
   components: {
-    StudentTable,
-    ExamTable
+    StudentTable
   },
   data() {
     return {
@@ -41,11 +32,7 @@ export default {
     };
   },
   async created() {
-    const id = this.$route.params.id
-    const { data } = await this.$api.get(`programs/${id}`)
-    this.program = data.data
-
-    const students = await this.$api.get(`programs/${id}/students`)
+    const students = await this.$api.get(`students`)
     this.tableData = students.data.data
   }
 };

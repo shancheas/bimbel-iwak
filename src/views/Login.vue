@@ -30,9 +30,9 @@
                 <div class="text-center">
                   <base-button @click="login" type="primary" class="my-4">Sign in</base-button>
                 </div>
-                <a href="#" class="text-muted">
-                  <small>Forgot password?</small>
-                </a>
+                <router-link to="/register" class="text-muted">
+                  <small>Tidak Memiliki Akun?</small>
+                </router-link>
               </form>
             </div>
           </div>
@@ -47,8 +47,8 @@ export default {
   data() {
     return {
       model: {
-        username: "admin",
-        password: "admin"
+        username: "",
+        password: ""
       }
     };
   },

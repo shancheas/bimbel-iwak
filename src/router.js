@@ -32,6 +32,12 @@ export default new Router({
           meta: { requiresAuth: true }
         },
         {
+          path: '/student',
+          name: 'student',
+          component: () => import('./views/Student.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
           path: '/thanks',
           name: 'thanks',
           component: () => import('./views/Thanks.vue'),
@@ -69,6 +75,11 @@ export default new Router({
           path: '/login',
           name: 'login',
           component: () => import('./views/Login.vue')
+        },
+        {
+          path: '/pengurus',
+          name: 'staff',
+          component: () => import('./views/StaffLogin.vue')
         },
         {
           path: '/register',

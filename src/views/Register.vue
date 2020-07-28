@@ -2,59 +2,48 @@
     <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
             <div class="card bg-secondary shadow border-0">
-                <div class="card-header bg-transparent pb-5">
-                    <div class="text-muted text-center mt-2 mb-3">
-                        <small>Sign up with</small>
-                    </div>
-                    <div class="btn-wrapper text-center">
-                        <a href="#" class="btn btn-neutral btn-icon">
-                            <span class="btn-inner--icon"><img src="img/icons/common/github.svg"></span>
-                            <span class="btn-inner--text">Github</span>
-                        </a>
-                        <a href="#" class="btn btn-neutral btn-icon">
-                            <span class="btn-inner--icon"><img src="img/icons/common/google.svg"></span>
-                            <span class="btn-inner--text">Google</span>
-                        </a>
-                    </div>
-                </div>
                 <div class="card-body px-lg-5 py-lg-5">
                     <div class="text-center text-muted mb-4">
-                        <small>Or sign up with credentials</small>
+                        <small>Masukan Data Diri Anda !</small>
                     </div>
                     <form role="form">
 
-                        <base-input class="input-group-alternative mb-3"
+                        <base-input 
+                        :valid="error.name.valid"
+                        :error="error.name.error"
+                        class="input-group-alternative mb-3"
                                     placeholder="Name"
                                     addon-left-icon="ni ni-hat-3"
                                     v-model="model.name">
                         </base-input>
 
+                        <base-input class="input-group-alternative"
+                        :valid="error.registration_number.valid"
+                        :error="error.registration_number.error"
+                                    placeholder="Nomor Bimbel"
+                                    addon-left-icon="ni ni-ruler-pencil"
+                                    v-model="model.registration_number">
+                        </base-input>
+
                         <base-input class="input-group-alternative mb-3"
+                        :valid="error.email.valid"
+                        :error="error.email.error"
                                     placeholder="Email"
                                     addon-left-icon="ni ni-email-83"
                                     v-model="model.email">
                         </base-input>
 
                         <base-input class="input-group-alternative"
+                        :valid="error.password.valid"
+                        :error="error.password.error"
                                     placeholder="Password"
                                     type="password"
                                     addon-left-icon="ni ni-lock-circle-open"
                                     v-model="model.password">
                         </base-input>
-
-                        <div class="text-muted font-italic">
-                            <small>password strength: <span class="text-success font-weight-700">strong</span></small>
-                        </div>
-
-                        <div class="row my-4">
-                            <div class="col-12">
-                                <base-checkbox class="custom-control-alternative">
-                                    <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
-                                </base-checkbox>
-                            </div>
-                        </div>
+                        
                         <div class="text-center">
-                            <base-button type="primary" class="my-4">Create account</base-button>
+                            <base-button @click="register" type="primary" class="my-4">Buat Akun</base-button>
                         </div>
                     </form>
                 </div>
@@ -62,12 +51,12 @@
             <div class="row mt-3">
                 <div class="col-6">
                     <a href="#" class="text-light">
-                        <small>Forgot password?</small>
+                        <small></small>
                     </a>
                 </div>
                 <div class="col-6 text-right">
-                    <router-link to="/login" class="text-light">
-                        <small>Login into your account</small>
+                    <router-link to="/login" class="text-muted font-italic">
+                        <span class="text-secondary font-weight-700">Atau Login ke Akun Anda</span>
                     </router-link>
                 </div>
             </div>
@@ -82,9 +71,74 @@
         model: {
           name: '',
           email: '',
-          password: ''
+          password: '',
+          registration_number: ''
+        },
+        error: {
+            name: {
+                valid: null,
+                error: '',
+            },
+            email: {
+                valid: null,
+                error: '',
+            },
+            password: {
+                valid: null,
+                error: '',
+            },
+            registration_number: {
+                valid: null,
+                error: '',
+            }
         }
       }
+    },
+    methods: {
+        async register() {
+            const response = await this.$api.post('/students', this.model)
+            const app = this
+            if (response.ok) {
+                this.$toast.success("Data Berhasil didaftarkan, Harap tunggu pihak bimbel memverifikasi")
+                setTimeout(function () {
+                    app.$router.push('/login')
+                }, 1000);
+            } else {
+                const data = response.data
+                
+                if (data.name) {
+                    this.error.name.valid = false
+                    this.error.name.error = data.name[0]
+                } else {
+                    this.error.name.valid = null
+                    this.error.name.error = ''
+                }
+
+                if (data.email) {
+                    this.error.email.valid = false
+                    this.error.email.error = data.email[0]
+                } else {
+                    this.error.email.valid = null
+                    this.error.email.error = ''
+                }
+
+                if (data.password) {
+                    this.error.password.valid = false
+                    this.error.password.error = data.password[0]
+                } else {
+                    this.error.password.valid = null
+                    this.error.password.error = ''
+                }
+
+                if (data.registration_number) {
+                    this.error.registration_number.valid = false
+                    this.error.registration_number.error = data.registration_number[0]
+                } else {
+                    this.error.registration_number.valid = null
+                    this.error.registration_number.error = ''
+                }
+            }
+        }
     }
   }
 </script>

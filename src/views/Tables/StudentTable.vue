@@ -24,7 +24,7 @@
         <template slot="columns">
           <th>Nama</th>
           <th>Nomor Registrasi</th>
-          <th>Kelas</th>
+          <th>status</th>
           <th></th>
         </template>
 
@@ -38,11 +38,18 @@
             {{row.name}}
           </th>
           <td>{{row.registration_number}}</td>
-          <td>{{row.classroom.name}}</td>
+          <td>
+            <badge pill :type="row.status == 1 ? `success` : `danger`">
+              {{ row.status == 1 ? 'Terverifikasi' : 'Belum Diverifikasi' }}
+            </badge>
+          </td>
           <td>
             <router-link to="/programs" class="btn btn-sm btn-primary">
               <i class="fa fa-eye"></i>
             </router-link>
+            <button @click="approve(row.id)" :class="{disabled: row.status == 1}" type="button" class="btn btn-sm btn-success" title="Verifikasi Siswa">
+              <i class="fa fa-check"></i>
+            </button>
           </td>
         </template>
       </base-table>
@@ -52,24 +59,42 @@
 <script>
 export default {
   name: "page-visits-table",
+  props: {
+    data: {
+      require: true,
+      description: 'Isi dari tablenya'
+    },
+    setting: {
+      type: Boolean,
+      default: false,
+      description: 'Menunjukan bahwa ini table setting'
+    }
+  },
   data() {
     return {
-      tableData: [],
       search: ''
     };
   },
   computed: {
     students() {
       const app = this
-      return this.tableData.filter(student => {
+      return this.data.filter(student => {
         return student.name.includes(app.search)
       })
     }
   },
-  async created() {
-    const id = this.$route.params.id
-    const { data } = await this.$api.get(`programs/${id}/students`)
-    this.tableData = data.data
+  methods: {
+    async approve(id) {
+      const students = await this.$api.put(`students/approve/${id}`)
+
+      if (students.ok) {
+        const app = this
+        this.$toast.success(students.data.message)
+        setTimeout(function () {
+            app.$router.go()
+        }, 1000);
+      }
+    }
   }
 };
 </script>

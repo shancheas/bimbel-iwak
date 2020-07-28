@@ -1,6 +1,6 @@
 import { create } from 'apisauce'
 
-const BASE_URL = 'https://iwak.zaelani.me/api'
+const BASE_URL = 'http://127.0.0.1:8000/api'
 const TIMEOUT = 30 * 1000
 
 
