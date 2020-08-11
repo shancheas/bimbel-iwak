@@ -3,13 +3,13 @@
     <h3 class="card-title mb-3">Nomor {{ number }}</h3>
 
     <div class="text-center mb-3">
-      <img v-if="image != null" class="card-img" :src="image" alt="Image placeholder" />
+      <img v-if="image != null" class="card-img" :src="`${getBaseUrl}${image}`" alt="Image placeholder" />
     </div>
 
     <p class="card-text mb-4">{{ question }}</p>
 
     <form class="form">
-      <div class="inputGroup" v-for="answer in randomAnswers" :key="answer.id">
+      <div class="inputGroup" v-for="answer in answers" :key="answer.id">
         <input
           :id="`radio${answer.id}`"
           v-model="answerModel"
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { BASE_URL } from "@/api";
+
 export default {
   name: "exam-tile",
   props: {
@@ -111,6 +113,9 @@ export default {
           model: false
         };
       });
+    },
+    getBaseUrl() {
+      return `${BASE_URL}`
     }
   }
 };

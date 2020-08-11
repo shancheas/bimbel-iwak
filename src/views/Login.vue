@@ -14,9 +14,9 @@
               <form role="form">
                 <base-input
                   class="input-group-alternative mb-3"
-                  placeholder="Username"
+                  placeholder="Email"
                   addon-left-icon="ni ni-email-83"
-                  v-model="model.username"
+                  v-model="model.email"
                 ></base-input>
 
                 <base-input
@@ -47,14 +47,14 @@ export default {
   data() {
     return {
       model: {
-        username: "",
+        email: "",
         password: ""
       }
     };
   },
   methods: {
     async login() {
-      const response = await this.$api.post('/login', this.model)
+      const response = await this.$api.post('/students/login', this.model)
 
       if (response.ok)
         this.$router.push('/dashboard')

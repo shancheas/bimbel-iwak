@@ -1,11 +1,12 @@
 import { create } from 'apisauce'
 
-const BASE_URL = 'http://127.0.0.1:8000/api'
+const BASE_URL = 'http://14228af70397.ngrok.io/'
+// const BASE_URL = 'http://127.0.0.1:8000/'
 const TIMEOUT = 30 * 1000
 
 
 const api = create({
-    baseURL: BASE_URL,
+    baseURL: BASE_URL + 'api',
     timeout: TIMEOUT
 })
 
@@ -23,3 +24,7 @@ api.addResponseTransform(response => {
 })
 
 export default api
+
+export {
+    BASE_URL
+}

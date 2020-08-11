@@ -48,6 +48,7 @@
 <script>
 import ExamTile from "./Exam/ExamTile";
 import ThanksModal from "./Exam/ThanksModal";
+
 export default {
   components: {
     ExamTile,
@@ -61,7 +62,7 @@ export default {
       },
       answers: [],
       thanksModal: false,
-      active: 1,
+      active: 0,
       mapAnswer: {
         'answer_a': 'A',
         'answer_b': 'B',
@@ -77,25 +78,25 @@ export default {
     },
     onSubmit(answer) {
       this.answers[this.active] = answer
-      if (this.course.exams.length != this.active)
-        this.active += 1
-      else {
-        this.thanksModal = true
-        const answer = this.answers.map((value, index) => {
-          return {
-            number: index,
-            answer: this.mapAnswer[value]
-          }
-        })
-        this.$api.post(`courses/answers/${this.$route.params.id}`, {
-          'student_id': 1,
-          'answer': answer
-        })
-      }
+      // if (this.course.exams.length != this.active)
+      //   this.active += 1
+      // else {
+      //   this.thanksModal = true
+      //   const answer = this.answers.map((value, index) => {
+      //     return {
+      //       number: index,
+      //       answer: this.mapAnswer[value]
+      //     }
+      //   })
+      //   this.$api.post(`courses/answers/${this.$route.params.id}`, {
+      //     'student_id': 1,
+      //     'answer': answer
+      //   })
+      // }
     }
   },
   computed: {
-    activeQuestion() {
+    activeQuestion2() {
       const number = this.active;
       const exam = this.course.exams[number -1];
       if (!exam) return false;
@@ -128,17 +129,49 @@ export default {
         ]
       };
     },
+    activeQuestion() {
+      const number = this.active;
+      if (!this.course.directory) return false;
+      return {
+        number: number,
+        question: '',
+        image: `storage/exam/${this.course.directory}/${number}.JPG`,
+        answers: [
+          {
+            id: "answer_a",
+            value: 'A'
+          },
+          {
+            id: "answer_b",
+            value: "B"
+          },
+          {
+            id: "answer_c",
+            value: "C"
+          },
+          {
+            id: "answer_d",
+            value: "D"
+          },
+          {
+            id: "answer_e",
+            value: "E"
+          }
+        ]
+      }
+    },
     savedAnswer() {
       return this.answers[this.active]
     },
     textButton() {
-      return this.course.exams.length == this.active ? "Selesai" : "Selanjutnya"
+      return this.course.total == this.active ? "Selesai" : "Selanjutnya"
     }
   },
-  async beforeCreate() {
+  async created() {
     const id = this.$route.params.id;
     const { data } = await this.$api.get(`courses/${id}`);
-    this.course = data.data;
+    this.course = data.course;
+    this.active = 1
   }
 };
 </script>

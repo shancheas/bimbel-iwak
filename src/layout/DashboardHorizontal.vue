@@ -46,12 +46,12 @@
               <span class="nav-link-inner--text">Siswa</span>
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/profile">
               <i class="ni ni-single-02"></i>
               <span class="nav-link-inner--text">Guru</span>
             </router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link class="nav-link nav-link-icon" to="/login" @click.native="logOut">
               <i class="fa fa-power-off"></i>

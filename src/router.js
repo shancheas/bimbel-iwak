@@ -20,9 +20,27 @@ export default new Router({
           meta: { requiresAuth: true }
         },
         {
+          path: '/exams/create',
+          name: 'create',
+          component: () => import('./views/ExamForm.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: '/courses/create',
+          name: 'create-course',
+          component: () => import('./views/CourseForm.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
           path: '/programs/:id',
           name: 'programs',
           component: () => import('./views/Program.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: '/exams/:id/course',
+          name: 'exams_course',
+          component: () => import('./views/CourseExam.vue'),
           meta: { requiresAuth: true }
         },
         {
@@ -35,6 +53,12 @@ export default new Router({
           path: '/student',
           name: 'student',
           component: () => import('./views/Student.vue'),
+          meta: { requiresAuth: true }
+        },
+        {
+          path: '/home',
+          name: 'home',
+          component: () => import('./views/Home.vue'),
           meta: { requiresAuth: true }
         },
         {

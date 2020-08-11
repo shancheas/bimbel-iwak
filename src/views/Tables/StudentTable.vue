@@ -39,15 +39,15 @@
           </th>
           <td>{{row.registration_number}}</td>
           <td>
-            <badge pill :type="row.status == 1 ? `success` : `danger`">
-              {{ row.status == 1 ? 'Terverifikasi' : 'Belum Diverifikasi' }}
+            <badge pill :type="row.approve == 1 ? `success` : `danger`">
+              {{ row.approve == 1 ? 'Terverifikasi' : 'Belum Diverifikasi' }}
             </badge>
           </td>
           <td>
             <router-link to="/programs" class="btn btn-sm btn-primary">
               <i class="fa fa-eye"></i>
             </router-link>
-            <button @click="approve(row.id)" :class="{disabled: row.status == 1}" type="button" class="btn btn-sm btn-success" title="Verifikasi Siswa">
+            <button @click="approve(row.id)" :class="{disabled: row.approve == 1}" type="button" class="btn btn-sm btn-success" title="Verifikasi Siswa">
               <i class="fa fa-check"></i>
             </button>
           </td>
@@ -60,10 +60,6 @@
 export default {
   name: "page-visits-table",
   props: {
-    data: {
-      require: true,
-      description: 'Isi dari tablenya'
-    },
     setting: {
       type: Boolean,
       default: false,
@@ -72,13 +68,14 @@ export default {
   },
   data() {
     return {
-      search: ''
+      search: '',
+      tableData: []
     };
   },
   computed: {
     students() {
       const app = this
-      return this.data.filter(student => {
+      return this.tableData.filter(student => {
         return student.name.includes(app.search)
       })
     }
@@ -91,10 +88,17 @@ export default {
         const app = this
         this.$toast.success(students.data.message)
         setTimeout(function () {
-            app.$router.go()
+          app.getStudents()
         }, 1000);
       }
+    },
+    async getStudents() {
+      const { data } = await this.$api.get(`students`)
+      this.tableData = data.students
     }
+  },
+  created() {
+    this.getStudents();
   }
 };
 </script>

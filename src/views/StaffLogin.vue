@@ -12,7 +12,7 @@
                             <base-input class="input-group-alternative mb-3"
                                         placeholder="Username"
                                         addon-left-icon="ni ni-email-83"
-                                        v-model="model.username">
+                                        v-model="model.email">
                             </base-input>
 
                             <base-input class="input-group-alternative"
@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       model: {
-        username: "admin",
-        password: "admin"
+        email: "admin@email.com",
+        password: "password1"
       }
     };
   },

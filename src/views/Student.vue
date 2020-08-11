@@ -32,8 +32,8 @@ export default {
     };
   },
   async created() {
-    const students = await this.$api.get(`students`)
-    this.tableData = students.data.data
+    const { data } = await this.$api.get(`students`)
+    this.tableData = data.students
   }
 };
 </script>

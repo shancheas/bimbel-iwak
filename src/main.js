@@ -47,6 +47,7 @@ router.beforeEach((to, from, next) => {
 Vue.config.productionTip = false
 
 Vue.use(ArgonDashboard)
+Vue.use(require('vue-moment'))
 Vue.use(VueToast, {
   position: 'top'
 })
