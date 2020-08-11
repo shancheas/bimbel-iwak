@@ -7,7 +7,7 @@
             <h3 class="mb-0">Daftar Mata Pelajaran</h3>
           </div>
           <div class="col text-right">
-            <button type="button" @click="$router.push(`/courses/create`)" class="btn btn-sm btn-primary">
+            <button type="button" @click="$router.push(`/courses/${$route.params.id}/create`)" class="btn btn-sm btn-primary">
               <i class="fa fa-plus"></i> Tambah Mata Ujian
             </button>
           </div>

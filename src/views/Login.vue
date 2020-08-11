@@ -57,7 +57,7 @@ export default {
       const response = await this.$api.post('/students/login', this.model)
 
       if (response.ok)
-        this.$router.push('/dashboard')
+        this.$router.push('/home')
       else
         this.$toast.error(response.data.message)
     }

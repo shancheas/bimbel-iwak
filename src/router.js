@@ -26,7 +26,7 @@ export default new Router({
           meta: { requiresAuth: true }
         },
         {
-          path: '/courses/create',
+          path: '/courses/:id/create',
           name: 'create-course',
           component: () => import('./views/CourseForm.vue'),
           meta: { requiresAuth: true }

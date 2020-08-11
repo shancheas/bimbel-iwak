@@ -1,7 +1,7 @@
 import { create } from 'apisauce'
 
-const BASE_URL = 'https://14228af70397.ngrok.io/'
-// const BASE_URL = 'http://127.0.0.1:8000/'
+// const BASE_URL = 'https://14228af70397.ngrok.io/'
+const BASE_URL = 'http://127.0.0.1:8000/'
 const TIMEOUT = 30 * 1000
 
 

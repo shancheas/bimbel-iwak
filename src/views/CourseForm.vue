@@ -18,9 +18,7 @@
                   <h3 class="mb-0">Membuat Soal Ujian</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <router-link to="/">
-                    <a href="#!" class="btn btn-sm btn-primary">SIMPAN</a>
-                  </router-link>
+                  <button @click="submitForm" class="btn btn-sm btn-primary">SIMPAN</button>
                 </div>
               </div>
             </div>
@@ -34,12 +32,12 @@
                           alternative
                           label="Nama Mata Pelajaran"
                           input-classes="form-control-alternative"
-                          v-model="model.examName"
+                          v-model="model.name"
                       />
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <base-input
                           alternative
                           label="Tanggal Ujian"
@@ -47,22 +45,10 @@
                           input-classes="form-control-alternative"
                       >
                         <datetime
+                            type="datetime"
                             inputClass="form-control form-control-alternative"
+                            value-zone="Asia/Jakarta"
                             v-model="model.date"
-                        ></datetime>
-                      </base-input>
-                    </div>
-                    <div class="col-lg-6">
-                      <base-input
-                          alternative
-                          label="Jam Ujian"
-                          placeholder="jesse@example.com"
-                          input-classes="form-control-alternative"
-                      >
-                        <datetime
-                            inputClass="form-control form-control-alternative"
-                            type="time"
-                            v-model="model.time"
                         ></datetime>
                       </base-input>
                     </div>
@@ -107,8 +93,8 @@ export default {
       dropzoneOptions: null,
       model: {
         date: moment().subtract(4, 'day'),
-        time: null,
-        examName: ""
+        // time: null,
+        name: ""
       }
     };
   },
@@ -117,7 +103,7 @@ export default {
     this.dropzoneOptions = {
       url: `http://localhost:8000/api/courses/upload`,
       maxFilesize: 0.5,
-      //   autoProcessQueue: false,
+      autoProcessQueue: false,
       addRemoveLinks: true,
       // acceptedFiles: "application/vnd.ms-excel",
       dictDefaultMessage: "<i class='fa fa-upload'></i> UPLOAD SOAL",
@@ -138,6 +124,12 @@ export default {
         this.model = false;
         this.$emit("onSuccess");
       }
+    },
+    async submitForm() {
+      const id = this.$route.params.id
+
+      await this.$api.post(`courses/${id}`, this.model)
+      this.$router.push(`/exams/${id}/course`)
     }
   }
 };

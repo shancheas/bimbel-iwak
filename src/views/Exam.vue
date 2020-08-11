@@ -78,21 +78,21 @@ export default {
     },
     onSubmit(answer) {
       this.answers[this.active] = answer
-      // if (this.course.exams.length != this.active)
-      //   this.active += 1
-      // else {
-      //   this.thanksModal = true
-      //   const answer = this.answers.map((value, index) => {
-      //     return {
-      //       number: index,
-      //       answer: this.mapAnswer[value]
-      //     }
-      //   })
-      //   this.$api.post(`courses/answers/${this.$route.params.id}`, {
-      //     'student_id': 1,
-      //     'answer': answer
-      //   })
-      // }
+      if (this.course.total !== this.active)
+        this.active += 1
+      else {
+        this.thanksModal = true
+        const answer = this.answers.map((value, index) => {
+          return {
+            number: index,
+            answer: this.mapAnswer[value]
+          }
+        })
+        // this.$api.post(`courses/answers/${this.$route.params.id}`, {
+        //   'student_id': 1,
+        //   'answer': answer
+        // })
+      }
     }
   },
   computed: {
